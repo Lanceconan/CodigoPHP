@@ -1,3 +1,34 @@
+<?php
+				
+	$host="localhost";
+	$port="1680";
+	$user="postgres";
+	$pass="pgmasterkey*.olimpo2017";
+	$dbname="db_preferencia";
+
+	$cadenaConexion = "host=$host port=$port dbname=$dbname user=$user password=$pass";
+	$cnx = pg_connect($cadenaConexion) or die('No se ha podido conectar: ' . pg_last_error());;
+	$query = "SELECT pai_id, pai_nombre FROM pre_pais";
+	$result = pg_query($query);
+	
+	if ( $result == FALSE)
+		die("No se conecta, no funka, se hace alguna weaita mal :-)");
+			
+	$num_registros = pg_num_rows($result);
+
+	if($num_registros <= 0)
+		echo ("Resultados" + $num_registros);
+	
+	$combobit="";
+	
+	while($row=pg_fetch_array($result))
+	{		
+		$combobit .=" <option value='".$row['pai_id']."'>".$row['pai_nombre']."</option>"; //concatenamos el los options para luego ser insertado en el HTML
+	}
+
+	//$cnx->close();	
+?>	
+
 <!DOCTYPE html>
 <html>
 	<script type="text/javascript" src="js/alertas.js"></script>
@@ -11,7 +42,7 @@
 </ul>
 
 <form action="controller/controller.php" method="post" name="registro de Datos">
-
+	
 	<fieldset>
 		<legend>Datos del Visitante</legend>
 		Nombre:<br>
@@ -24,7 +55,9 @@
 		<input type="text" name="" value="" size="30"><br><br>
 		Nacionalidad:<br>
 		<select name="nacionalidad">
-			
+			<?php
+				echo $combobit;
+			?>
 		</select>
 	</fieldset>
 

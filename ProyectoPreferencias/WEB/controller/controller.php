@@ -36,5 +36,9 @@
     function registrarPreferencia(){
         echo("Algo");
         $connect = getConection();
+
+        // Realizando una consulta SQL
+        $query = 'SELECT * FROM pre_';
+        $result = pg_query($query) or die('La consulta fallo: ' . pg_last_error());
     }
 ?>
