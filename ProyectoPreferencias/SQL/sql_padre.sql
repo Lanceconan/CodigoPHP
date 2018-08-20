@@ -350,9 +350,9 @@ INSERT INTO public.pre_pais (pai_id,pai_nombre) VALUES
 ,(9999,'MARTINICA')
 ,(20423,'BAHAMASSSS');
 
-INSERT INTO public.pre_pais(
-pai_id, 
-pai_nombre
+INSERT INTO public.pre_musica(
+mus_id, 
+mus_nombre
 )
 VALUES 
 (0,'OTRO'),
