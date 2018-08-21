@@ -7,7 +7,7 @@
 	$dbname="db_preferencia";
 
 	$cadenaConexion = "host=$host port=$port dbname=$dbname user=$user password=$pass";
-	$cnx = pg_connect($cadenaConexion) 
+	$conexion = pg_connect($cadenaConexion) 
 		or die('No se ha podido conectar: ' . pg_last_error());;
 	
 	$query = "SELECT pai_id, pai_nombre FROM pre_pais";
@@ -40,7 +40,7 @@
 		$radioMusica .= "<input type='radio' name='musica' value='".$row['mus_id']."'>".$row['mus_nombre']."<br>";
 	}
 
-	pg_close($cnx);	
+	pg_close($conexion);	
 ?>
 
 <!DOCTYPE html>

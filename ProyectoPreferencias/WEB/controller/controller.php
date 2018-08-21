@@ -22,9 +22,6 @@
         echo("evento de eliminar pelicula con ID: ".$_POST['eliminar_pelicula']);
     }
 
-
-    
-
     /************************** FUNCIONES PRINCIPALES **************************************/
     
     /**
@@ -39,11 +36,11 @@
     
         $cadenaConexion = "host=$host port=$port dbname=$dbname user=$user password=$pass";
     
-        $connect = pg_connect("
+        $conexion = pg_connect("
             $cadenaConexion
         ") or die('No se ha podido conectar: ' . pg_last_error());
     
-        return $connect;
+        return $conexion;
     }
 
     /**
