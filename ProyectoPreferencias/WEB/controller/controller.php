@@ -6,6 +6,22 @@
         registrarPreferencia();
     }
 
+    if(isset($_POST['editar_musica'])){
+        echo("evento de editar genero musical ID: ".$_POST['editar_musica']);
+    }
+
+    if(isset($_POST['eliminar_musica'])){
+        echo("evento de eliminar genero musical con ID: ".$_POST['eliminar_musica']);
+    }
+
+    if(isset($_POST['editar_pelicula'])){
+        echo("evento de editar pelicula con ID: ".$_POST['editar_pelicula']);
+    }
+
+    if(isset($_POST['eliminar_pelicula'])){
+        echo("evento de eliminar pelicula con ID: ".$_POST['eliminar_pelicula']);
+    }
+
 
     
 

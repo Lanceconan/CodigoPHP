@@ -18,8 +18,8 @@
 	while($row = pg_fetch_array($result))
 	{	        
         $tablaMusica .= "<tr><td>".$row['mus_id']."</td><td>".$row['mus_nombre']."</td>
-        <td><button type='submit'><img src='images/edit.png' alt='guardar'>Editar</button></td>
-        <td><button type='submit'><img src='images/borrar.png' alt='guardar'>Eliminar</button></td>               
+        <td><button type='submit' name='editar_musica' value='".$row['mus_id']."'><img src='images/edit.png' alt='guardar'>Editar</button></td>
+        <td><button type='submit' name='eliminar_musica' value='".$row['mus_id']."'><img src='images/borrar.png' alt='guardar'>Eliminar</button></td>               
         </tr>";
 	}
 
@@ -47,20 +47,22 @@
 
     <h2>Generos Musicales Actuales</h2>
 
-    <fieldset>
-        <legend>Registros Actuales en Sistema </legend>
-        
-        <table border="1">
-        <tr>
-            <th>ID</th><th>Genero Musical</th><th>Acciones</th>
-        </tr>
-        
-        <?php
-            echo $tablaMusica;
-        ?>
-    </table>
-    </fieldset>
-
+    <form action="controller/controller.php" method="post">
+        <fieldset>
+            <legend>Registros Actuales en Sistema </legend>
+            
+            <table border="1">
+            <tr>
+                <th>ID</th><th>Genero Musical</th><th>Acciones</th>
+            </tr>
+            
+            <?php
+                echo $tablaMusica;
+            ?>
+        </table>
+        </fieldset>
+    </form>
+    
     <fieldset>
         <legend>Agregar Nuevo Registro</legend>
         <br>

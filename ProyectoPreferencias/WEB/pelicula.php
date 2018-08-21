@@ -18,8 +18,8 @@
 	while($row = pg_fetch_array($result))
 	{	        
         $tablaPelicula .= "<tr><td>".$row['pel_id']."</td><td>".$row['pel_nombre']."</td>
-        <td><button type='submit'><img src='images/edit.png' alt='guardar'>Editar</button></td>
-        <td><button type='submit'><img src='images/borrar.png' alt='guardar'>Eliminar</button></td>
+        <td><button type='submit' name='editar_pelicula' value='".$row['pel_id']."'><img src='images/edit.png' alt='guardar'>Editar</button></td>
+        <td><button type='submit' name='eliminar_pelicula' value='".$row['pel_id']."'><img src='images/borrar.png' alt='guardar'>Eliminar</button></td>
         </tr>";
 	}
 
@@ -43,21 +43,22 @@
 	</ul>
 
     <h2>Generos Cinematográficos Actuales</h2>
-
-    <fieldset>
-        <legend>Registros Actuales en Sistema </legend>
+    <form action="controller/controller.php" method="post">    
+        <fieldset>
+            <legend>Registros Actuales en Sistema </legend>
+            
+            <table border="1">
+            <tr>
+                <th>ID</th><th>Género Cinematográfico</th><th>Acciones</th>
+            </tr>
+            
+            <?php
+                echo $tablaPelicula;
+            ?>
+        </table>
         
-        <table border="1">
-        <tr>
-            <th>ID</th><th>Género Cinematográfico</th><th>Acciones</th>
-        </tr>
-        
-        <?php
-            echo $tablaPelicula;
-        ?>
-    </table>
-    </fieldset>
-
+        </fieldset>
+    </form>
     <fieldset>
         <legend>Agregar Nuevo Registro</legend>
         <br>
