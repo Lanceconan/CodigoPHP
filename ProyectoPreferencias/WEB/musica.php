@@ -17,7 +17,10 @@
 	
 	while($row = pg_fetch_array($result))
 	{	        
-        $tablaMusica .= "<tr><td>".$row['mus_id']."</td><td>".$row['mus_nombre']."</td></tr>";
+        $tablaMusica .= "<tr><td>".$row['mus_id']."</td><td>".$row['mus_nombre']."</td>
+        <td><button type='submit'><img src='images/edit.png' alt='guardar'>Editar</button></td>
+        <td><button type='submit'><img src='images/borrar.png' alt='guardar'>Eliminar</button></td>               
+        </tr>";
 	}
 
 	pg_close($cnx);	
@@ -49,7 +52,7 @@
         
         <table border="1">
         <tr>
-            <th>ID</th><th>Genero Musical</th>
+            <th>ID</th><th>Genero Musical</th><th>Acciones</th>
         </tr>
         
         <?php
