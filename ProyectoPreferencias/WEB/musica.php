@@ -7,7 +7,7 @@
 	$dbname="db_preferencia";
 
 	$cadenaConexion = "host=$host port=$port dbname=$dbname user=$user password=$pass";
-	$cnx = pg_connect($cadenaConexion) 
+	$conexion = pg_connect($cadenaConexion) 
 		or die('No se ha podido conectar: ' . pg_last_error());;
 	
 	$query = "SELECT mus_id, mus_nombre FROM pre_musica";
@@ -23,7 +23,7 @@
         </tr>";
 	}
 
-	pg_close($cnx);	
+	pg_close($conexion);	
 ?>
 
 <!DOCTYPE html>
