@@ -3,31 +3,45 @@
 	$host="localhost";
 	$port="1680";
 	$user="postgres";
-	$pass="pgmasterkey*.olimpo2017";
+	$pass="postgres";
 	$dbname="db_preferencia";
 
 	$cadenaConexion = "host=$host port=$port dbname=$dbname user=$user password=$pass";
-	$cnx = pg_connect($cadenaConexion) or die('No se ha podido conectar: ' . pg_last_error());;
+	$cnx = pg_connect($cadenaConexion) 
+		or die('No se ha podido conectar: ' . pg_last_error());;
+	
 	$query = "SELECT pai_id, pai_nombre FROM pre_pais";
 	$result = pg_query($query);
-	
-	if ( $result == FALSE)
-		die("No se conecta, no funka, se hace alguna weaita mal :-)");
 			
-	$num_registros = pg_num_rows($result);
-
-	if($num_registros <= 0)
-		echo ("Resultados" + $num_registros);
+	$comboPais="";
 	
-	$combobit="";
-	
-	while($row=pg_fetch_array($result))
+	while($row = pg_fetch_array($result))
 	{		
-		$combobit .=" <option value='".$row['pai_id']."'>".$row['pai_nombre']."</option>"; //concatenamos el los options para luego ser insertado en el HTML
+		$comboPais .=" <option value='".$row['pai_id']."'>".$row['pai_nombre']."</option>"; //concatenamos el los options para luego ser insertado en el HTML
 	}
 
-	//$cnx->close();	
-?>	
+	$query = "SELECT pel_id, pel_nombre FROM pre_pelicula";
+	$result = pg_query($query);
+
+	$checkBoxPeliculas = "";
+
+	while($row = pg_fetch_array($result))
+	{
+		$checkBoxPeliculas .= "<input type='checkbox' value='".$row['pel_id']."'>".$row['pel_nombre']."<br>";
+	}
+
+	$query = "SELECT mus_id, mus_nombre FROM pre_musica";
+	$result = pg_query($query);
+
+	$radioMusica = "";
+
+	while($row = pg_fetch_array($result))
+	{
+		$radioMusica .= "<input type='radio' name='musica' value='".$row['mus_id']."'>".$row['mus_nombre']."<br>";
+	}
+
+	pg_close($cnx);	
+?>
 
 <!DOCTYPE html>
 <html>
@@ -36,44 +50,51 @@
 	<title>Encuesta de preferencia</title>
 </head>
 <body>
-<ul>
-	<li><a href="pelicula.php"> Agregar Genero Cinematográfico</a></li>
-	<li><a href="musica.php"> Agregar Estilo Musical</a></li>
-</ul>
 
-<form action="controller/controller.php" method="post" name="registro de Datos">
-	
-	<fieldset>
-		<legend>Datos del Visitante</legend>
-		Nombre:<br>
-		<input type="text" name="nombre" value="" size="30"><br><br>
-		Apellido:<br>
-		<input type="text" name="" value="" size="30"><br><br>
-		Correo:<br>
-		<input type="text" name="" value="" size="30"><br><br>
-		Fecha Nacimiento:<br>
-		<input type="text" name="" value="" size="30"><br><br>
-		Nacionalidad:<br>
-		<select name="nacionalidad">
+	<ul>
+		<li><a href="index.php"> Responder Encuesta</a></li>
+		<li><a href="pelicula.php"> Generos Cinematográfico</a></li>
+		<li><a href="musica.php"> Estilos Musical</a></li>
+	</ul>
+
+	<form action="controller/controller.php" method="post" name="registro de Datos">
+		
+		<fieldset>
+			<legend>Datos del Visitante</legend>
+			Nombre:
+			<input type="text" name="nombre" value="" size="30"><br>
+			Apellido:
+			<input type="text" name="" value="" size="30"><br>
+			Correo:
+			<input type="text" name="" value="" size="30"><br>
+			Fecha Nacimiento:
+			<input type="text" name="" value="" size="30"><br>
+			Nacionalidad:
+			<select name="nacionalidad">
+				<?php
+					echo $comboPais;
+				?>
+			</select>
+		</fieldset>
+
+		<fieldset>
+			<legend>Preferencias</legend>
+			Estilo Musical:<br>
 			<?php
-				echo $combobit;
+				echo $radioMusica;
 			?>
-		</select>
-	</fieldset>
+			Genero Cinematográfico:<br>
+			<?php
+				echo $checkBoxPeliculas;
+			?>
+		</fieldset>
 
-	<fieldset>
-		<legend>Preferencias</legend>
-		Estilo Musical:<br>
-		
-		Genero Cinematográfico:<br>
-		
-	</fieldset>
+		<br><br>
+		<button type="submit" name="registrar" onclick="registrar()">  Registrar  <img src="images/save.png" alt="registrar"></button>
+		<button type="reset" onclick="limpiar()">  Limpiar  <img src="images/delete.png" alt="limpiar"></button>
 
-	<br><br>
-	<button type="submit" name="registrar" onclick="registrar()">  Registrar  <img src="images/save.png" alt="registrar"></button>
-	<button type="reset" onclick="limpiar()">  Limpiar  <img src="images/delete.png" alt="limpiar"></button>
-
-</form>
+	</form>
 
 </body>
 </html>
+

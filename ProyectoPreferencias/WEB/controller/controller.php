@@ -18,7 +18,7 @@
         $host="localhost";
         $port="1680";
         $user="postgres";
-        $pass="pgmasterkey*.olimpo2017";
+        $pass="postgres";
         $dbname="db_preferencia";
     
         $cadenaConexion = "host=$host port=$port dbname=$dbname user=$user password=$pass";
@@ -35,10 +35,6 @@
      */
     function registrarPreferencia(){
         echo("Algo");
-        $connect = getConection();
-
-        // Realizando una consulta SQL
-        $query = 'SELECT * FROM pre_';
-        $result = pg_query($query) or die('La consulta fallo: ' . pg_last_error());
+        $connect = getConection();        
     }
 ?>
