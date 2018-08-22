@@ -3,12 +3,12 @@
     $host="localhost";
 	$port="1680";
 	$user="postgres";
-	$pass="postgres";
+	$pass="pgmasterkey*.olimpo2017";
 	$dbname="db_preferencia";
 
 	$cadenaConexion = "host=$host port=$port dbname=$dbname user=$user password=$pass";
 	$conexion = pg_connect($cadenaConexion) 
-		or die('No se ha podido conectar: ' . pg_last_error());;
+		or die('No se ha podido conectar: ' . pg_last_error());
 	
         $query = "SELECT mus_id, mus_nombre FROM pre_musica WHERE mus_id = ".$_GET["idMusica"].";";
         $result = pg_query($query);	

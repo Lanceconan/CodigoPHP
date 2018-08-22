@@ -55,7 +55,7 @@ CREATE TABLE public.pre_usuario
 (
   usr_id bigint NOT NULL,
   usr_nombre character varying(150) NOT NULL,
-  cli_apellido character varying(150) NOT NULL,
+  usr_apellido character varying(150) NOT NULL,
   usr_correo character varying(150) NOT NULL,
   usr_fechanacimiento timestamp without time zone NOT NULL,
   usr_nac_id integer NOT NULL,

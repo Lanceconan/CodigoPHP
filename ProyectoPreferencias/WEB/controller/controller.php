@@ -41,7 +41,17 @@
     }
 
     if(isset($_POST['registrar'])){
-        registrarPreferencia();
+               
+        registrarPreferencia(
+            mb_strtoupper($_POST['nombre']),
+            mb_strtoupper($_POST['apellido']),
+            mb_strtoupper($_POST['mail']),
+            mb_strtoupper($_POST['date']),
+            $_POST['musica'],
+            $_POST['nacionalidad'],
+            $_POST['peliculas']
+        );
+        header("refresh:15;url='../pelicula.php'");
     }
 
     /************************** FUNCIONES PRINCIPALES **************************************/
@@ -53,7 +63,7 @@
         $host="localhost";
         $port="1680";
         $user="postgres";
-        $pass="postgres";
+        $pass="pgmasterkey*.olimpo2017";
         $dbname="db_preferencia";
     
         $cadenaConexion = "host=$host port=$port dbname=$dbname user=$user password=$pass";
@@ -68,9 +78,54 @@
     /**
      * Metodo que contiene los que haceres para registrar una preferencia
      */
-    function registrarPreferencia(){
-        echo("Algo");
-        $connect = getConection();        
+    function registrarPreferencia(
+        $nombre,
+        $apellido,
+        $mail,
+        $date,
+        $musica,
+        $nacionalidad,
+        $peliculas
+
+    ){        
+        $conexion = getConection();
+        
+        //INSERTAR REGISTROS EN TABLA USUARIO
+        $query = "INSERT INTO pre_usuario(usr_id, usr_nombre, usr_apellido, usr_correo, usr_fechanacimiento, usr_nac_id) 
+                    VALUES ((SELECT COALESCE(MAX(usr_id)+1, 0) FROM pre_usuario), '".$nombre."', '".$apellido."', '".$mail."', current_date, ".$nacionalidad.")
+                    RETURNING usr_id;";
+        echo($query);
+        $result = pg_query($query);
+
+        while($row = pg_fetch_array($result))
+        {	        
+            $idUsuario = $row['usr_id'];           
+        }
+
+        //SE INSERTA EL REGISTRO EN LA TABLA USUARIOMUSICA
+        $query = "INSERT INTO pre_usuariomusica(uxm_id, uxm_mus_id, uxm_usr_id) 
+                    VALUES((SELECT COALESCE(MAX(uxm_id) + 1, 0) FROM pre_usuariomusica), ".$musica.", ".$idUsuario.");";
+        echo($query);
+        $result = pg_query($query);
+
+        //SE INSERTA REGISTRO EN LA TABLA USUARIOPELICULA
+        $query = "INSERT INTO pre_usuariopelicula(uxp_id, uxp_pel_id, uxp_usr_id) VALUES";
+        $numRegistros = count($peliculas);
+        
+        for($i=0; $i<$numRegistros; $i++){
+            
+            $query.="((SELECT COALESCE(MAX(uxp_id), 0)+1+".$i."FROM pre_usuariopelicula), ".$peliculas[$i].", ".$idUsuario.")";
+            
+            if(($i+1)==$numRegistros){
+                $query.=";";
+            }else{
+                $query.=",";
+            }
+        }
+
+        echo($query);
+        $result = pg_query($query);
+        pg_close($conexion);
     }
 
     /**

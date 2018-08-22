@@ -3,7 +3,7 @@
 	$host="localhost";
 	$port="1680";
 	$user="postgres";
-	$pass="postgres";
+	$pass="pgmasterkey*.olimpo2017";
 	$dbname="db_preferencia";
 
 	$cadenaConexion = "host=$host port=$port dbname=$dbname user=$user password=$pass";
@@ -27,7 +27,7 @@
 
 	while($row = pg_fetch_array($result))
 	{
-		$checkBoxPeliculas .= "<input type='checkbox' value='".$row['pel_id']."'>".$row['pel_nombre']."<br>";
+		$checkBoxPeliculas .= "<input type='checkbox' name='peliculas[]' value='".$row['pel_id']."'>".$row['pel_nombre']."<br>";
 	}
 
 	$query = "SELECT mus_id, mus_nombre FROM pre_musica";
@@ -64,11 +64,11 @@
 			Nombre:
 			<input type="text" name="nombre" value="" size="30"><br>
 			Apellido:
-			<input type="text" name="" value="" size="30"><br>
+			<input type="text" name="apellido" value="" size="30"><br>
 			Correo:
-			<input type="text" name="" value="" size="30"><br>
+			<input type="text" name="mail" value="" size="30"><br>
 			Fecha Nacimiento:
-			<input type="text" name="" value="" size="30"><br>
+			<input type="text" name="date" value="" size="30"><br>
 			Nacionalidad:
 			<select name="nacionalidad">
 				<?php
