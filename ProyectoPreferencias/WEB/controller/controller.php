@@ -6,6 +6,18 @@
         registrarPreferencia();
     }
 
+    if(isset($_POST['insertar_musica'])){
+        echo("evento de insertar genero musical ID: ".$_POST['musica']);
+        insertarRegistroMusica(mb_strtoupper($_POST['musica']));
+        header("refresh:0;url='../musica.php'");
+    }
+
+    if(isset($_POST['insertar_pelicula'])){
+        echo("evento de insertar genero cinematográfico ID: ".$_POST['pelicula']);
+        insertarRegistroPelicula(mb_strtoupper($_POST['pelicula']));
+        header("refresh:0;url='../pelicula.php'");
+    }
+
     if(isset($_POST['editar_musica'])){
         echo("evento de editar genero musical ID: ".$_POST['editar_musica']);
     }
@@ -82,5 +94,34 @@
         $result = pg_query($query);
         
         pg_close($connect);
+    }
+
+    /**
+     * Metodo para insertar un nuevo registro de música
+     */
+    function insertarRegistroMusica($musica){
+        
+        $conexion = getConection();
+
+        $query = "INSERT INTO pre_musica (mus_id, mus_nombre) 
+                    VALUES ((SELECT MAX(mus_id)+1 FROM pre_musica), '".$musica."');";
+        $result = pg_query($query);
+
+        pg_close($conexion);
+    }
+
+    /**
+     * Metodo para insertar un nuevo registro en términos de peliculas
+     */
+    function insertarRegistroPelicula($pelicula){
+
+        $conexion = getConection();
+
+        $query = "INSERT INTO pre_pelicula (pel_id, pel_nombre) 
+        VALUES ((SELECT MAX(pel_id)+1 FROM pre_pelicula), '".$pelicula."');";
+
+        $result = pg_query($query);
+
+        pg_close($conexion);
     }
 ?>

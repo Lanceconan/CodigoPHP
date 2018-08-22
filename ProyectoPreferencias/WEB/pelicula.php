@@ -18,9 +18,10 @@
 	while($row = pg_fetch_array($result))
 	{	        
         $tablaPelicula .= "<tr><td>".$row['pel_id']."</td><td>".$row['pel_nombre']."</td>
-        <td><button type='submit' name='editar_pelicula' value='".$row['pel_id']."'><img src='images/edit.png' alt='guardar'>Editar</button></td>
-        <td><button type='submit' name='eliminar_pelicula' value='".$row['pel_id']."'><img src='images/borrar.png' alt='guardar'>Eliminar</button></td>
-        </tr>";
+        <td>
+            <button type='submit' name='editar_pelicula' value='".$row['pel_id']."'><img src='images/edit.png' alt='guardar'>Editar</button>
+            <button type='submit' name='eliminar_pelicula' value='".$row['pel_id']."'><img src='images/borrar.png' alt='guardar'>Eliminar</button>
+        </td></tr>";
 	}
 
 	pg_close($conexion);	
@@ -65,7 +66,7 @@
         <form action="controller/controller.php" method="post">
             Nuevo Género:<input type="text" name="pelicula">
             <br><br>
-            <button type="submit"><img src="images/save.png" alt="guardar">Guardar</button>
+            <button type="submit" name="insertar_pelicula"><img src="images/save.png" alt="guardar">Guardar</button>
             <button type="reset" onclick="limpiar()"><img src="images/delete.png" alt="guardar">Borrar</button>
         </form>
 
