@@ -44,6 +44,7 @@
 		<li><a href="index.php"> Responder Encuesta</a></li>
 		<li><a href="pelicula.php"> Generos Cinematográfico</a></li>
 		<li><a href="musica.php"> Estilos Musical</a></li>
+        <li><a href="estadisticas.php"> Resultados</a></li>
 	</ul>
 
     <h2>Generos Musicales Actuales</h2>

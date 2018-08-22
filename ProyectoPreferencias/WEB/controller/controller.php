@@ -51,7 +51,7 @@
             $_POST['nacionalidad'],
             $_POST['peliculas']
         );
-        header("refresh:15;url='../pelicula.php'");
+        header("refresh:0;url='../index.php'");
     }
 
     /************************** FUNCIONES PRINCIPALES **************************************/
