@@ -10,6 +10,10 @@
         echo("evento de editar genero musical ID: ".$_POST['editar_musica']);
     }
 
+    if(isset($_POST['editar_musica_ok'])){
+        echo("evento de editar genero musical ID: ".$_POST['editar_musica_ok']);
+    }
+
     if(isset($_POST['eliminar_musica'])){
         echo("evento de eliminar genero musical con ID: ".$_POST['eliminar_musica']);
     }
@@ -31,7 +35,7 @@
         $host="localhost";
         $port="1680";
         $user="postgres";
-        $pass="pgmasterkey*.olimpo2017";
+        $pass="postgres";
         $dbname="db_preferencia";
     
         $cadenaConexion = "host=$host port=$port dbname=$dbname user=$user password=$pass";
