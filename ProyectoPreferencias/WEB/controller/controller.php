@@ -14,16 +14,19 @@
         echo("evento de editar genero musical ID: ".$_POST['editar_musica_ok']);
     }
 
-    if(isset($_POST['eliminar_musica'])){
-        echo("evento de eliminar genero musical con ID: ".$_POST['eliminar_musica']);
-    }
-
     if(isset($_POST['editar_pelicula'])){
         echo("evento de editar pelicula con ID: ".$_POST['editar_pelicula']);
     }
 
+    if(isset($_POST['eliminar_musica'])){        
+        eliminarEstiloMusical($_POST['eliminar_musica']);        
+        header("refresh:0;url='../musica.php'");
+
+    }
+
     if(isset($_POST['eliminar_pelicula'])){
-        echo("evento de eliminar pelicula con ID: ".$_POST['eliminar_pelicula']);
+        eliminarGeneroCinematográfico($_POST['eliminar_pelicula']);
+        header("refresh:0;url='../pelicula.php'");
     }
 
     /************************** FUNCIONES PRINCIPALES **************************************/
@@ -53,5 +56,31 @@
     function registrarPreferencia(){
         echo("Algo");
         $connect = getConection();        
+    }
+
+    /**
+     * Metodo para eliminar un registro de estilo musical
+     */
+    function eliminarEstiloMusical($idEstilo){
+        
+        $connect = getConection();
+        
+        $query = "DELETE FROM pre_musica WHERE mus_id = ".$idEstilo.";";
+        $result = pg_query($query);
+        
+        pg_close($connect);
+    }
+
+    /**
+     * Metodo para eliminar un registro de genero cinematográfico
+     */
+    function eliminarGeneroCinematográfico($idGenero){
+        
+        $connect = getConection();
+        
+        $query = "DELETE FROM pre_pelicula WHERE pel_id = ".$idGenero.";";
+        $result = pg_query($query);
+        
+        pg_close($connect);
     }
 ?>
