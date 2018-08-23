@@ -1,7 +1,37 @@
 <?
+    $$host="localhost";
+	$port="1680";
+	$user="postgres";
+	$pass="pgmasterkey*.olimpo2017";
+	$dbname="db_preferencia";
+
+	$cadenaConexion = "host=$host port=$port dbname=$dbname user=$user password=$pass";
+	$conexion = pg_connect($cadenaConexion) 
+        or die('No se ha podido conectar: ' . pg_last_error());
+    
+    $query = "SELECT mus_nombre as nombre, count(uxm_id) as cantidad FROM pre_usuariomusica JOIN pre_musica ON uxm_mus_id = mus_id GROUP BY mus_nombre;";
+
+    $result=pg_query($query);
+
+    while($row = pg_fetch_array($result))
+    {	        
+        $idMusica = $row['nombre'];
+        $nombreMusica = $row['cantidad'];
+    }
+
+    $query = "SELECT pel_nombre as nombre, count(uxp_id) as cantidad FROM pre_usuariopelicula JOIN pre_pelicula ON uxp_pel_id = pel_id GROUP BY pel_nombre;";
+
+    $result=pg_query($query);
+
+    while($row = pg_fetch_array($result))
+    {	        
+        $idPelicula = $row['nombre'];
+        $nombrePelicula = $row['cantidad'];
+    }
+
 
     
-
+    pg_close($conexion);		
 
 ?>
 <!DOCTYPE html>
@@ -26,6 +56,15 @@
         <li><a href="estadisticas.php"> Resultados</a></li>
     </ul>
     
-    <div id="donutchart" style="width: 900px; height: 500px;"></div>
+    <div id="donutchartmusica" style="width: 900px; height: 500px;">11111111</div>
+    <div id="donutchartpeliculas" style="width: 900px; height: 500px;">222222</div>
+
+    <form action="controller/controller.php" method="post">
+            Nuevo Estilo:<input type="text" name="musica">
+            <br><br>
+            <button type="submit" name="insertar_musica"><img src="images/save.png" alt="guardar">Guardar</button>
+            <button type="reset" onclick="mostrarPHP()"><img src="images/delete.png" alt="guardar">Borrar</button>
+        </form>
+
 </body>
 </html>
