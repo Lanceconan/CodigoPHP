@@ -1,4 +1,5 @@
 //https://developers.google.com/chart/interactive/docs/gallery/piechart#donut
+//http://www.codedrinks.com/google-api-chart-ejemplo-de-grafica-de-barras-con-php-jquery-y-mysql/ ejemplo ajax
 
 
 function mostrarPHP(){
